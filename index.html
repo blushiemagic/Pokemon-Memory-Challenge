@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Pokemon Memory Challenge</title>
+        <link rel="stylesheet" href="index.css">
+        <script src="index.js" defer></script>
+    </head>
+    <body>
+        <h1>Pok&eacute;mon Memory Challenge</h1>
+        <button id="dark-mode" type="button">Toggle Dark Mode</button>
+        <div id="start">
+            <div id="end-result" hidden>
+                <div id="result-win" hidden>
+                    Congratulations! You remembered all <span class="count">0</span> Pok&eacute;mon in <span id="result-time">0:00</span>
+                </div>
+                <div id="result-lose" hidden>
+                    You remembered <span id="result-score">0</span> out of <span class="count">0</span> Pok&eacute;mon
+                </div>
+                <div>on <span id="result-difficulty">Cheat</span> mode!</div>
+            </div>
+            <p id="instructions">How many Pok&eacute;mon can you list from memory?</p>
+            <form id="start-form">
+                <select id="difficulty">
+                    <option value="easy" selected>Easy - National Dex Numbers</option>
+                    <option value="medium">Medium - Generations</option>
+                    <option value="hard">Hard - Freestyle</option>
+                </select>
+                <button id="submit-start" type="submit" disabled>Start</button>
+            </form>
+        </div>
+        <div id="game" hidden>
+            <div id="add-time" hidden>+ 0:06</div>
+            <div id="time">1:00</div>
+            <div id="result" hidden>Enter a Guess</div>
+            <form id="game-form">
+                <input type="text" id="name">
+                <button type="submit">Submit</button>
+            </form>
+            <div id="progress">
+                Progress: <span id="score">0</span> / <span class="count">0</span>
+            </div>
+        </div>
+        <div id="panels"></div>
+    </body>
+</html>

@@ -1,0 +1,126 @@
+* {
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.dark {
+    background-color: #111111;
+    color: lightgray;
+}
+
+#dark-mode {
+    position: absolute;
+    left: 1em;
+    top: 1em;
+}
+
+input {
+    text-align: left;
+}
+
+select {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#difficulty {
+    font-size: 20px;
+}
+
+#submit-start {
+    display: block;
+    font-size: 24px;
+    border: none;
+    border-radius: 24px;
+    padding: 12px 24px;
+    background-color: lightblue;
+    cursor: pointer;
+    margin-bottom: 1em;
+}
+#submit-start:hover {
+    background-color: #9dc8d6;
+}
+#submit-start:disabled {
+    background-color: lightgray;
+}
+
+#game {
+    font-size: 16px;
+}
+
+#add-time, #result {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+#time {
+    font-size: 24px;
+    font-weight: bold;
+    padding-top: 16px;
+}
+
+#add-time {
+    color: rgb(0 0 0 / 0);
+}
+
+#game-form {
+    padding-top: 24px;
+    margin-bottom: 1em;
+}
+#game-form * {
+    font-size: 16px;
+}
+
+#progress {
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+#panels {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+}
+
+#panels>* {
+    border-radius: 1em;
+    border: 1px solid black;
+    padding: 1em;
+    min-width: 25%;
+    margin-bottom: 1em;
+}
+
+#panels div {
+    display: flex;
+    justify-content: center;
+}
+
+#panels ul, #panels ol {
+    list-style-type: none;
+    margin-block-end: 0;
+    padding-inline-start: 0;
+    line-height: 32px;
+}
+
+#panels li {
+    text-align: left;
+}
+
+#panels img {
+    display: inline-block;
+    vertical-align: text-bottom;
+}
+
+summary {
+    cursor: pointer;
+}
+
+#end-result {
+    margin-bottom: 1em;
+    font-size: 20px;
+}
+#instructions {
+    font-size: 20px;
+}
