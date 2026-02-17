@@ -3,6 +3,8 @@
 let game = null;
 let data = null;
 const genOrder = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX'];
+const nidoranM = 29
+const nidoranF = 32;
 
 function toggleDarkMode(event) {
     console.log('test');
@@ -81,20 +83,51 @@ class Game {
 
     submit(name) {
         let formattedName = name.trim().replaceAll(' ', '').replaceAll('-', '').replaceAll('.', '').toLowerCase();
+        let bothNidoran = formattedName == 'nidoran';
         let id = data.names[formattedName];
+        if (bothNidoran) {
+            if (this.answers[nidoranM - 1]) {
+                if (this.answers[nidoranF - 1]) {
+                    id = nidoranM;
+                } else {
+                    id = nidoranF;
+                    bothNidoran = false;
+                }
+            } else {
+                id = nidoranM;
+                if (this.answers[nidoranF - 1]) {
+                    bothNidoran = false;
+                }
+            }
+        }
         if (!id) {
             this.onFailure(name + ' does not exist');
         } else if (this.answers[id - 1]) {
             document.getElementById('name').value = '';
-            this.onFailure('Already have ' + data.pokemon[id - 1].name);
+            let nameString = data.pokemon[id - 1].name;
+            if (bothNidoran) {
+                nameString = 'Nidoran';
+            }
+            this.onFailure('Already have ' + nameString);
         } else {
             this.answers[id - 1] = true;
             this.score += 1;
+            if (bothNidoran) {
+                this.answers[nidoranF - 1] = true;
+                this.score += 1;
+            }
             document.getElementById('score').innerHTML = this.score;
             document.getElementById('name').value = '';
             this.addPokemon(data.pokemon[id - 1]);
+            if (bothNidoran) {
+                this.addPokemon(data.pokemon[nidoranF - 1]);
+            }
+            let nameString = data.pokemon[id - 1].name;
+            if (bothNidoran) {
+                nameString = 'Nidoran';
+            }
             if (this.score < data.count) {
-                this.onSuccess(data.pokemon[id - 1].name);
+                this.onSuccess(nameString);
             } else {
                 endGame();
             }
