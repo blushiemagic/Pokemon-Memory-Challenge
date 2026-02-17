@@ -61,6 +61,11 @@ class Game {
         this.timerId = setInterval(() => this.updateTimer(true), 1000);
         this.updateTimer(false);
         document.getElementById('score').innerHTML = 0;
+        let bonusTime = this.getBonusTime().toString();
+        if (bonusTime.length < 2) {
+            bonusTime = '0' + bonusTime;
+        }
+        document.getElementById('add-time').innerHTML = '+ 0:' + bonusTime;
         document.getElementById('panels').innerHTML = '';
         document.getElementById('add-time').style.color = 'transparent';
         document.getElementById('result').style.color = 'transparent';
@@ -115,6 +120,7 @@ class Game {
             if (bothNidoran) {
                 this.answers[nidoranF - 1] = true;
                 this.score += 1;
+                this.time += this.getBonusTime();
             }
             document.getElementById('score').innerHTML = this.score;
             document.getElementById('name').value = '';
@@ -154,7 +160,7 @@ class Game {
             }
         }, 75);
 
-        this.time += 6;
+        this.time += this.getBonusTime();
         this.updateTimer(false);
         this.addTimerFade = 1;
         if (this.addTimeId) {
@@ -217,7 +223,7 @@ class Game {
         document.getElementById('result-win').hidden = !win;
         document.getElementById('result-lose').hidden = win;
         document.getElementById('result-score').innerHTML = this.score;
-        let totalTime = 60 + 6 * this.score - this.time;
+        let totalTime = 60 + this.getBonusTime() * this.score - this.time;
         let minutes = Math.floor(totalTime / 60).toString();
         let seconds = (totalTime % 60).toString();
         if (seconds.length < 2) {
@@ -246,6 +252,10 @@ class Game {
     getMode() {
         throw Error();
     }
+
+    getBonusTime() {
+        throw Error();
+    }
 }
 
 class EasyGame extends Game {
@@ -260,7 +270,7 @@ class EasyGame extends Game {
             this.genScores[k] = 0;
             this.panels[k].style.backgroundColor = `hsl(${k * 250} 100 50 / 0.25)`;
             let gen = genOrder[k];
-            this.panels[k].innerHTML = `<summary>Generation ${gen}: <span>0</span> / ${data.genCounts[gen]}</summary><div><ol></ol></div>`;
+            this.panels[k].innerHTML = `<summary>Generation ${gen}: <span>0</span> / ${data.genCounts[gen]}</summary><div class="scrollable"><ol></ol></div>`;
             let pokemon = data.pokemon.filter(pokemon => pokemon.gen == gen);
             this.genStart[k] = pokemon[0].id;
             this.panels[k].querySelector('ol').innerHTML = pokemon
@@ -281,6 +291,10 @@ class EasyGame extends Game {
     getMode() {
         return 'Easy';
     }
+
+    getBonusTime() {
+        return 10;
+    }
 }
 
 class MediumGame extends Game {
@@ -295,7 +309,7 @@ class MediumGame extends Game {
             this.panels[k].open = true;
             this.panels[k].style.backgroundColor = `hsl(${k * 250} 100 50 / 0.25)`;
             let gen = genOrder[k];
-            this.panels[k].innerHTML = `<summary>Generation ${gen}: <span>0</span> / ${data.genCounts[gen]}</summary><div><ul></ul></div>`;
+            this.panels[k].innerHTML = `<summary>Generation ${gen}: <span>0</span> / ${data.genCounts[gen]}</summary><div class="scrollable"><ul></ul></div>`;
             document.getElementById('panels').appendChild(this.panels[k]);
         }
     }
@@ -312,6 +326,10 @@ class MediumGame extends Game {
     getMode() {
         return 'Medium';
     }
+
+    getBonusTime() {
+        return 9;
+    }
 }
 
 class HardGame extends Game {
@@ -321,6 +339,7 @@ class HardGame extends Game {
         super();
         this.panel = document.createElement('div');
         this.panel.style.backgroundColor = 'rgb(0 255 255 / 0.25)';
+        this.panel.classList.add('scrollable');
         this.panel.innerHTML = '<ul style="margin-block-start:0"></ul>';
         document.getElementById('panels').appendChild(this.panel);
     }
@@ -333,6 +352,10 @@ class HardGame extends Game {
 
     getMode() {
         return 'Hard';
+    }
+
+    getBonusTime() {
+        return 8;
     }
 }
 

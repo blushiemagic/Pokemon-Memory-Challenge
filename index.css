@@ -91,6 +91,14 @@ select {
     min-width: 25%;
     margin-bottom: 1em;
 }
+.dark #panels>* {
+    border-color: lightgray;
+}
+
+.scrollable {
+    overflow-y: auto;
+    max-height: 480px;
+}
 
 #panels div {
     display: flex;
